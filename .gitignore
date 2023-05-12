@@ -39,4 +39,4 @@ coverage.txt
 kubeconfig
 
 # Location for checking out the chart for using skaffold
-anchore-charts
+nextlinux-charts

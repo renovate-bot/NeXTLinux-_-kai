@@ -9,16 +9,16 @@ import (
 	"os"
 	"time"
 
-	"github.com/anchore/k8s-inventory/pkg/reporter"
+	"github.com/nextlinux/k8s-inventory/pkg/reporter"
 
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 
-	"github.com/anchore/k8s-inventory/internal/config"
-	"github.com/anchore/k8s-inventory/internal/log"
-	"github.com/anchore/k8s-inventory/pkg/client"
-	"github.com/anchore/k8s-inventory/pkg/inventory"
-	"github.com/anchore/k8s-inventory/pkg/logger"
+	"github.com/nextlinux/k8s-inventory/internal/config"
+	"github.com/nextlinux/k8s-inventory/internal/log"
+	"github.com/nextlinux/k8s-inventory/pkg/client"
+	"github.com/nextlinux/k8s-inventory/pkg/inventory"
+	"github.com/nextlinux/k8s-inventory/pkg/logger"
 )
 
 type ReportItem struct {
@@ -44,13 +44,13 @@ func reportToStdout(report inventory.Report) error {
 }
 
 func HandleReport(report inventory.Report, cfg *config.Application) error {
-	if cfg.AnchoreDetails.IsValid() {
-		if err := reporter.Post(report, cfg.AnchoreDetails); err != nil {
-			return fmt.Errorf("unable to report Inventory to Anchore: %w", err)
+	if cfg.NextlinuxDetails.IsValid() {
+		if err := reporter.Post(report, cfg.NextlinuxDetails); err != nil {
+			return fmt.Errorf("unable to report Inventory to Nextlinux: %w", err)
 		}
-		log.Info("Inventory report sent to Anchore")
+		log.Info("Inventory report sent to Nextlinux")
 	} else {
-		log.Info("Anchore details not specified, not reporting inventory")
+		log.Info("Nextlinux details not specified, not reporting inventory")
 	}
 
 	if cfg.VerboseInventoryReports {

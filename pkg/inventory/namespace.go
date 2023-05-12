@@ -8,8 +8,8 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/anchore/k8s-inventory/internal/tracker"
-	"github.com/anchore/k8s-inventory/pkg/client"
+	"github.com/nextlinux/k8s-inventory/internal/tracker"
+	"github.com/nextlinux/k8s-inventory/pkg/client"
 )
 
 // excludeCheck is a function that will return whether a namespace should be

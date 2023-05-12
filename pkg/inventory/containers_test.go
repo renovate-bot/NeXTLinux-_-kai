@@ -96,8 +96,8 @@ func Test_getContainersInPod(t *testing.T) {
 						InitContainerStatuses: []v1.ContainerStatus{
 							{
 								Name:        "test-container",
-								Image:       "anchore/test:v1.0.0",
-								ImageID:     "docker-pullable://anchore/test@sha256:2e500d29e9d5f4a086b908eb8dfe7ecac57d2ab09d65b24f588b1d449841ef93",
+								Image:       "nextlinux/test:v1.0.0",
+								ImageID:     "docker-pullable://nextlinux/test@sha256:2e500d29e9d5f4a086b908eb8dfe7ecac57d2ab09d65b24f588b1d449841ef93",
 								ContainerID: "docker://a9cd75ad99dd4363bbd882b40e753b58c62bfd7b03cabeb764c1dac97568ad26",
 							},
 						},
@@ -109,7 +109,7 @@ func Test_getContainersInPod(t *testing.T) {
 			want: []Container{
 				{
 					Name:        "test-container",
-					ImageTag:    "anchore/test:v1.0.0",
+					ImageTag:    "nextlinux/test:v1.0.0",
 					ImageDigest: "sha256:2e500d29e9d5f4a086b908eb8dfe7ecac57d2ab09d65b24f588b1d449841ef93",
 					ID:          "docker://a9cd75ad99dd4363bbd882b40e753b58c62bfd7b03cabeb764c1dac97568ad26",
 				},
@@ -166,7 +166,7 @@ func TestGetContainersFromPods(t *testing.T) {
 							Containers: []v1.Container{
 								{
 									Name:  "test-container2",
-									Image: "anchore/kai:v1.0.0",
+									Image: "nextlinux/kai:v1.0.0",
 								},
 							},
 						},
@@ -174,8 +174,8 @@ func TestGetContainersFromPods(t *testing.T) {
 							ContainerStatuses: []v1.ContainerStatus{
 								{
 									Name:        "test-container2",
-									Image:       "anchore/kai:v1.0.0",
-									ImageID:     "docker-pullable://anchore/kai@sha256:9999999wwwwwwwwwwwwwwwwffffffffffffff",
+									Image:       "nextlinux/kai:v1.0.0",
+									ImageID:     "docker-pullable://nextlinux/kai@sha256:9999999wwwwwwwwwwwwwwwwffffffffffffff",
 									ContainerID: "docker://a9cd75ad000000000000000000003b58c62bfd7b03cabeb764c1dac97568ad26",
 								},
 							},
@@ -196,7 +196,7 @@ func TestGetContainersFromPods(t *testing.T) {
 				},
 				{
 					Name:        "test-container2",
-					ImageTag:    "anchore/kai:v1.0.0",
+					ImageTag:    "nextlinux/kai:v1.0.0",
 					ImageDigest: "sha256:9999999wwwwwwwwwwwwwwwwffffffffffffff",
 					ID:          "docker://a9cd75ad000000000000000000003b58c62bfd7b03cabeb764c1dac97568ad26",
 				},
@@ -232,7 +232,7 @@ func TestGetContainersFromPods(t *testing.T) {
 							Containers: []v1.Container{
 								{
 									Name:  "test-container2",
-									Image: "anchore/kai:v1.0.0",
+									Image: "nextlinux/kai:v1.0.0",
 								},
 							},
 						},
@@ -240,8 +240,8 @@ func TestGetContainersFromPods(t *testing.T) {
 							ContainerStatuses: []v1.ContainerStatus{
 								{
 									Name:        "test-container2",
-									Image:       "anchore/kai:v1.0.0",
-									ImageID:     "docker-pullable://anchore/kai@sha256:9999999wwwwwwwwwwwwwwwwffffffffffffff",
+									Image:       "nextlinux/kai:v1.0.0",
+									ImageID:     "docker-pullable://nextlinux/kai@sha256:9999999wwwwwwwwwwwwwwwwffffffffffffff",
 									ContainerID: "docker://a9cd75ad000000000000000000003b58c62bfd7b03cabeb764c1dac97568ad26",
 								},
 							},
@@ -331,7 +331,7 @@ func TestGetContainersFromPods(t *testing.T) {
 							Containers: []v1.Container{
 								{
 									Name:  "test-container2",
-									Image: "anchore/kai:v1.0.0",
+									Image: "nextlinux/kai:v1.0.0",
 								},
 							},
 						},
@@ -339,8 +339,8 @@ func TestGetContainersFromPods(t *testing.T) {
 							ContainerStatuses: []v1.ContainerStatus{
 								{
 									Name:        "test-container2",
-									Image:       "anchore/kai:v1.0.0",
-									ImageID:     "docker-pullable://anchore/kai@sha256:9999999wwwwwwwwwwwwwwwwffffffffffffff",
+									Image:       "nextlinux/kai:v1.0.0",
+									ImageID:     "docker-pullable://nextlinux/kai@sha256:9999999wwwwwwwwwwwwwwwwffffffffffffff",
 									ContainerID: "docker://a9cd75ad000000000000000000003b58c62bfd7b03cabeb764c1dac97568ad26",
 								},
 							},
@@ -355,7 +355,7 @@ func TestGetContainersFromPods(t *testing.T) {
 			want: []Container{
 				{
 					Name:        "test-container2",
-					ImageTag:    "anchore/kai:v1.0.0",
+					ImageTag:    "nextlinux/kai:v1.0.0",
 					ImageDigest: "sha256:9999999wwwwwwwwwwwwwwwwffffffffffffff",
 					ID:          "docker://a9cd75ad000000000000000000003b58c62bfd7b03cabeb764c1dac97568ad26",
 				},

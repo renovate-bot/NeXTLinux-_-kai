@@ -14,13 +14,13 @@ var completionCmd = &cobra.Command{
 
 Bash:
 
-$ source <(anchore-k8s-inventory completion bash)
+$ source <(nextlinux-k8s-inventory completion bash)
 
 # To load completions for each session, execute once:
 Linux:
-  $ anchore-k8s-inventory completion bash > /etc/bash_completion.d/anchore-k8s-inventory
+  $ nextlinux-k8s-inventory completion bash > /etc/bash_completion.d/nextlinux-k8s-inventory
 MacOS:
-  $ anchore-k8s-inventory completion bash > /usr/local/etc/bash_completion.d/anchore-k8s-inventory
+  $ nextlinux-k8s-inventory completion bash > /usr/local/etc/bash_completion.d/nextlinux-k8s-inventory
 
 Zsh:
 
@@ -30,16 +30,16 @@ Zsh:
 $ echo "autoload -U compinit; compinit" >> ~/.zshrc
 
 # To load completions for each session, execute once:
-$ anchore-k8s-inventory completion zsh > "${fpath[1]}/_anchore-k8s-inventory"
+$ nextlinux-k8s-inventory completion zsh > "${fpath[1]}/_nextlinux-k8s-inventory"
 
 # You will need to start a new shell for this setup to take effect.
 
 Fish:
 
-$ anchore-k8s-inventory completion fish | source
+$ nextlinux-k8s-inventory completion fish | source
 
 # To load completions for each session, execute once:
-$ anchore-k8s-inventory completion fish > ~/.config/fish/completions/anchore-k8s-inventory.fish
+$ nextlinux-k8s-inventory completion fish > ~/.config/fish/completions/nextlinux-k8s-inventory.fish
 `,
 	DisableFlagsInUseLine: true,
 	ValidArgs:             []string{"bash", "zsh", "fish"},

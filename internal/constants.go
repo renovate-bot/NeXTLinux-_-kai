@@ -1,4 +1,4 @@
 package internal
 
 // note: do not change this
-const ApplicationName = "anchore-k8s-inventory"
+const ApplicationName = "nextlinux-k8s-inventory"

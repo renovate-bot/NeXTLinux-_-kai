@@ -1,5 +1,5 @@
 /*
-Copyright © 2020 NAME HERE sam.dacanay@anchore.com
+Copyright © 2020 NAME HERE sam.dacanay@nextlinux.com
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@ limitations under the License.
 */
 package main
 
-import "github.com/anchore/k8s-inventory/cmd"
+import "github.com/nextlinux/k8s-inventory/cmd"
 
 func main() {
 	cmd.Execute()

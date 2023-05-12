@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/anchore/go-testutils"
+	"github.com/nextlinux/go-testutils"
 )
 
 var update = flag.Bool("update", false, "update the *.golden files for config string output")
@@ -28,7 +28,7 @@ func TestEmptyConfigString(t *testing.T) {
 
 func TestDefaultConfigString(t *testing.T) {
 	config, err := LoadConfigFromFile(viper.GetViper(), &CliOnlyOptions{
-		ConfigPath: "../../anchore-k8s-inventory.yaml",
+		ConfigPath: "../../nextlinux-k8s-inventory.yaml",
 	})
 	if err != nil {
 		t.Errorf("failed to load application config: \n\t%+v\n", err)
@@ -48,12 +48,12 @@ func TestDefaultConfigString(t *testing.T) {
 
 func TestSensitiveConfigString(t *testing.T) {
 	config, err := LoadConfigFromFile(viper.GetViper(), &CliOnlyOptions{
-		ConfigPath: "../../anchore-k8s-inventory.yaml",
+		ConfigPath: "../../nextlinux-k8s-inventory.yaml",
 	})
 	if err != nil {
 		t.Errorf("failed to load application config: \n\t%+v\n", err)
 	}
-	config.AnchoreDetails.Password = "foo"
+	config.NextlinuxDetails.Password = "foo"
 	config.KubeConfig.User.PrivateKey = "baz"
 	config.KubeConfig.User.Token = "bar"
 	actual := config.String()

@@ -1,4 +1,4 @@
-// Once In-Use Image data has been gathered, this package reports the data to Anchore
+// Once In-Use Image data has been gathered, this package reports the data to Nextlinux
 package reporter
 
 import (
@@ -10,29 +10,29 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/anchore/k8s-inventory/internal/config"
-	"github.com/anchore/k8s-inventory/internal/log"
-	"github.com/anchore/k8s-inventory/internal/tracker"
-	"github.com/anchore/k8s-inventory/pkg/inventory"
+	"github.com/nextlinux/k8s-inventory/internal/config"
+	"github.com/nextlinux/k8s-inventory/internal/log"
+	"github.com/nextlinux/k8s-inventory/internal/tracker"
+	"github.com/nextlinux/k8s-inventory/pkg/inventory"
 )
 
 const ReportAPIPath = "v1/enterprise/kubernetes-inventory"
 
-// This method does the actual Reporting (via HTTP) to Anchore
+// This method does the actual Reporting (via HTTP) to Nextlinux
 //
 //nolint:gosec
-func Post(report inventory.Report, anchoreDetails config.AnchoreInfo) error {
-	defer tracker.TrackFunctionTime(time.Now(), "Reporting results to Anchore for cluster: "+report.ClusterName+"")
-	log.Debug("Reporting results to Anchore")
+func Post(report inventory.Report, nextlinuxDetails config.NextlinuxInfo) error {
+	defer tracker.TrackFunctionTime(time.Now(), "Reporting results to Nextlinux for cluster: "+report.ClusterName+"")
+	log.Debug("Reporting results to Nextlinux")
 	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: anchoreDetails.HTTP.Insecure},
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: nextlinuxDetails.HTTP.Insecure},
 	}
 	client := &http.Client{
 		Transport: tr,
-		Timeout:   time.Duration(anchoreDetails.HTTP.TimeoutSeconds) * time.Second,
+		Timeout:   time.Duration(nextlinuxDetails.HTTP.TimeoutSeconds) * time.Second,
 	}
 
-	anchoreURL, err := buildURL(anchoreDetails)
+	nextlinuxURL, err := buildURL(nextlinuxDetails)
 	if err != nil {
 		return fmt.Errorf("failed to build url: %w", err)
 	}
@@ -42,32 +42,32 @@ func Post(report inventory.Report, anchoreDetails config.AnchoreInfo) error {
 		return fmt.Errorf("failed to serialize results as JSON: %w", err)
 	}
 
-	req, err := http.NewRequest("POST", anchoreURL, bytes.NewBuffer(reqBody))
+	req, err := http.NewRequest("POST", nextlinuxURL, bytes.NewBuffer(reqBody))
 	if err != nil {
-		return fmt.Errorf("failed to build request to report data to Anchore: %w", err)
+		return fmt.Errorf("failed to build request to report data to Nextlinux: %w", err)
 	}
-	req.SetBasicAuth(anchoreDetails.User, anchoreDetails.Password)
+	req.SetBasicAuth(nextlinuxDetails.User, nextlinuxDetails.Password)
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("x-anchore-account", anchoreDetails.Account)
+	req.Header.Set("x-nextlinux-account", nextlinuxDetails.Account)
 	resp, err := client.Do(req)
 	if err != nil {
-		return fmt.Errorf("failed to report data to Anchore: %w", err)
+		return fmt.Errorf("failed to report data to Nextlinux: %w", err)
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode < 200 || resp.StatusCode > 299 {
-		return fmt.Errorf("failed to report data to Anchore: %+v", resp)
+		return fmt.Errorf("failed to report data to Nextlinux: %+v", resp)
 	}
-	log.Debug("Successfully reported results to Anchore")
+	log.Debug("Successfully reported results to Nextlinux")
 	return nil
 }
 
-func buildURL(anchoreDetails config.AnchoreInfo) (string, error) {
-	anchoreURL, err := url.Parse(anchoreDetails.URL)
+func buildURL(nextlinuxDetails config.NextlinuxInfo) (string, error) {
+	nextlinuxURL, err := url.Parse(nextlinuxDetails.URL)
 	if err != nil {
 		return "", err
 	}
 
-	anchoreURL.Path += ReportAPIPath
+	nextlinuxURL.Path += ReportAPIPath
 
-	return anchoreURL.String(), nil
+	return nextlinuxURL.String(), nil
 }

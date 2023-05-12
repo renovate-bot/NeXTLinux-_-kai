@@ -1,12 +1,12 @@
-configpath: ../../anchore-k8s-inventory.yaml
+configpath: ../../nextlinux-k8s-inventory.yaml
 quiet: false
 log:
   structured: false
   levelopt: debug
   level: debug
-  filelocation: ./anchore-k8s-inventory.log
+  filelocation: ./nextlinux-k8s-inventory.log
 clioptions:
-  configpath: ../../anchore-k8s-inventory.yaml
+  configpath: ../../nextlinux-k8s-inventory.yaml
   verbosity: 0
 dev:
   profilecpu: false
@@ -37,7 +37,7 @@ runmode: 0
 mode: adhoc
 ignorenotrunning: true
 pollingintervalseconds: 300
-anchoredetails:
+nextlinuxdetails:
   url: ""
   user: ""
   password: '******'

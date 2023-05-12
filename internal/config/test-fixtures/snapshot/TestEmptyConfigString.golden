@@ -37,7 +37,7 @@ runmode: 0
 mode: ""
 ignorenotrunning: false
 pollingintervalseconds: 0
-anchoredetails:
+nextlinuxdetails:
   url: ""
   user: ""
   password: ""

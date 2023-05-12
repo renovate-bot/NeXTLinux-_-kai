@@ -1,6 +1,6 @@
 package log
 
-import "github.com/anchore/k8s-inventory/pkg/logger"
+import "github.com/nextlinux/k8s-inventory/pkg/logger"
 
 var Log logger.Logger = &nopLogger{}
 

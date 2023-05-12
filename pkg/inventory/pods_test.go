@@ -3,7 +3,7 @@ package inventory
 import (
 	"testing"
 
-	"github.com/anchore/k8s-inventory/pkg/client"
+	"github.com/nextlinux/k8s-inventory/pkg/client"
 	"github.com/stretchr/testify/assert"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

@@ -9,7 +9,7 @@ log:
   level: "debug"
 
   # location to write the log file (default is not to have a log file)
-  file: "./anchore-k8s-inventory.log"
+  file: "./nextlinux-k8s-inventory.log"
 
 # enable/disable checking for application updates on startup
 check-for-app-update: true
@@ -78,7 +78,7 @@ ignore-not-running: true
 # Only respected if mode is periodic
 polling-interval-seconds: 300
 
-anchore:
+nextlinux:
   # url: $ANCHORE_K8S_INVENTORY_ANCHORE_URL
   # user: $ANCHORE_K8S_INVENTORY_ANCHORE_USER
   password: $ANCHORE_K8S_INVENTORY_ANCHORE_PASSWORD

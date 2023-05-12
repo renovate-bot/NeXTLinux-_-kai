@@ -1,4 +1,4 @@
-BIN = anchore-k8s-inventory
+BIN = nextlinux-k8s-inventory
 TEMPDIR = ./.tmp
 RESULTSDIR = $(TEMPDIR)/results
 COVER_REPORT = $(RESULTSDIR)/cover.report
@@ -16,7 +16,7 @@ SUCCESS := $(BOLD)$(GREEN)
 # the quality gate lower threshold for unit test total % coverage (by function statements)
 COVERAGE_THRESHOLD := 50
 
-CLUSTER_NAME=anchore-k8s-inventory-testing
+CLUSTER_NAME=nextlinux-k8s-inventory-testing
 
 GOLANG_CI_VERSION=v1.52.2
 GOBOUNCER_VERSION=v0.3.0
@@ -26,7 +26,7 @@ GORELEASER_VERSION=v1.4.1
 DISTDIR=./dist
 SNAPSHOTDIR=./snapshot
 GITTREESTATE=$(if $(shell git status --porcelain),dirty,clean)
-SNAPSHOT_CMD=$(shell realpath $(shell pwd)/$(SNAPSHOTDIR)/anchore-k8s-inventory_linux_amd64/anchore-k8s-inventory)
+SNAPSHOT_CMD=$(shell realpath $(shell pwd)/$(SNAPSHOTDIR)/nextlinux-k8s-inventory_linux_amd64/nextlinux-k8s-inventory)
 
 ifeq "$(strip $(VERSION))" ""
  override VERSION = $(shell git describe --always --tags --dirty)
@@ -150,22 +150,22 @@ build: $(SNAPSHOTDIR) ## Build release snapshot binaries and packages
 .PHONY: linux-binary
 linux-binary: clean bootstrap
 	mkdir -p $(SNAPSHOTDIR)
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o $(SNAPSHOTDIR)/anchore-k8s-inventory .
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o $(SNAPSHOTDIR)/nextlinux-k8s-inventory .
 
 .PHONY: linux-binary-arm64
 linux-binary-arm64: clean bootstrap
 	mkdir -p $(SNAPSHOTDIR)
-	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -a -installsuffix cgo -o $(SNAPSHOTDIR)/anchore-k8s-inventory .
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -a -installsuffix cgo -o $(SNAPSHOTDIR)/nextlinux-k8s-inventory .
 
 .PHONY: mac-binary
 mac-binary: clean bootstrap
 	mkdir -p $(SNAPSHOTDIR)
-	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -a -installsuffix cgo -o $(SNAPSHOTDIR)/anchore-k8s-inventory .
+	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -a -installsuffix cgo -o $(SNAPSHOTDIR)/nextlinux-k8s-inventory .
 
 .PHONY: mac-binary-arm64
 mac-binary-arm64: clean bootstrap
 	mkdir -p $(SNAPSHOTDIR)
-	CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -a -installsuffix cgo -o $(SNAPSHOTDIR)/anchore-k8s-inventory .
+	CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -a -installsuffix cgo -o $(SNAPSHOTDIR)/nextlinux-k8s-inventory .
 
 $(SNAPSHOTDIR): ## Build snapshot release binaries and packages
 	$(call title,Building snapshot artifacts)
@@ -203,4 +203,4 @@ clean-dist:
 .PHONY: bootstrap-skaffold
 bootstrap-skaffold:
 	$(call title, Cloning chart for local skaffold dev)
-	git clone https://github.com/anchore/anchore-charts.git
+	git clone https://github.com/nextlinux/nextlinux-charts.git

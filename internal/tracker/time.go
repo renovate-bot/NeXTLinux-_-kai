@@ -3,7 +3,7 @@ package tracker
 import (
 	"time"
 
-	"github.com/anchore/k8s-inventory/internal/log"
+	"github.com/nextlinux/k8s-inventory/internal/log"
 )
 
 // TrackFunctionTime is a function that tracks the time it takes to execute a function

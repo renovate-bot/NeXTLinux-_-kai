@@ -2,10 +2,10 @@
 The Config package handles the application configuration. Configurations can come from a variety of places, and
 are listed below in order of precedence:
   - Command Line
-  - .anchore-k8s-inventory.yaml
-  - .anchore-k8s-inventory/config.yaml
-  - ~/.anchore-k8s-inventory.yaml
-  - <XDG_CONFIG_HOME>/anchore-k8s-inventory/config.yaml
+  - .nextlinux-k8s-inventory.yaml
+  - .nextlinux-k8s-inventory/config.yaml
+  - ~/.nextlinux-k8s-inventory.yaml
+  - <XDG_CONFIG_HOME>/nextlinux-k8s-inventory/config.yaml
   - Environment Variables prefixed with ANCHORE_K8S_INVENTORY_
 */package config
 
@@ -16,14 +16,14 @@ import (
 
 	"gopkg.in/yaml.v2"
 
-	"github.com/anchore/k8s-inventory/pkg/mode"
+	"github.com/nextlinux/k8s-inventory/pkg/mode"
 
 	"github.com/adrg/xdg"
 	"github.com/mitchellh/go-homedir"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 
-	"github.com/anchore/k8s-inventory/internal"
+	"github.com/nextlinux/k8s-inventory/internal"
 )
 
 const redacted = "******"
@@ -51,7 +51,7 @@ type Application struct {
 	Mode                            string      `mapstructure:"mode"`
 	IgnoreNotRunning                bool        `mapstructure:"ignore-not-running"`
 	PollingIntervalSeconds          int         `mapstructure:"polling-interval-seconds"`
-	AnchoreDetails                  AnchoreInfo `mapstructure:"anchore"`
+	NextlinuxDetails                  NextlinuxInfo `mapstructure:"nextlinux"`
 	VerboseInventoryReports         bool        `mapstructure:"verbose-inventory-reports"`
 }
 
@@ -74,8 +74,8 @@ type KubernetesAPI struct {
 	WorkerPoolSize        int   `mapstructure:"worker-pool-size"`
 }
 
-// Information for posting in-use image details to Anchore (or any URL for that matter)
-type AnchoreInfo struct {
+// Information for posting in-use image details to Nextlinux (or any URL for that matter)
+type NextlinuxInfo struct {
 	URL      string     `mapstructure:"url"`
 	User     string     `mapstructure:"user"`
 	Password string     `mapstructure:"password"`
@@ -102,11 +102,11 @@ type Development struct {
 	ProfileCPU bool `mapstructure:"profile-cpu"`
 }
 
-// Return whether or not AnchoreDetails are specified
-func (anchore *AnchoreInfo) IsValid() bool {
-	return anchore.URL != "" &&
-		anchore.User != "" &&
-		anchore.Password != ""
+// Return whether or not NextlinuxDetails are specified
+func (nextlinux *NextlinuxInfo) IsValid() bool {
+	return nextlinux.URL != "" &&
+		nextlinux.User != "" &&
+		nextlinux.Password != ""
 }
 
 func setNonCliDefaultValues(v *viper.Viper) {
@@ -114,10 +114,10 @@ func setNonCliDefaultValues(v *viper.Viper) {
 	v.SetDefault("log.file", "")
 	v.SetDefault("log.structured", false)
 	v.SetDefault("dev.profile-cpu", false)
-	v.SetDefault("anchore.account", "admin")
-	v.SetDefault("kubeconfig.anchore.account", "admin")
-	v.SetDefault("anchore.http.insecure", false)
-	v.SetDefault("anchore.http.timeout-seconds", 10)
+	v.SetDefault("nextlinux.account", "admin")
+	v.SetDefault("kubeconfig.nextlinux.account", "admin")
+	v.SetDefault("nextlinux.http.insecure", false)
+	v.SetDefault("nextlinux.http.timeout-seconds", 10)
 	v.SetDefault("kubernetes-request-timeout-seconds", -1)
 	v.SetDefault("kubernetes.request-timeout-seconds", 60)
 	v.SetDefault("kubernetes.request-batch-size", 100)
@@ -296,8 +296,8 @@ func (cfg Application) String() string {
 	// redact sensitive information
 	// Note: If the configuration grows to have more redacted fields it would be good to refactor this into something that
 	// is more dynamic based on a property or list of "sensitive" fields
-	if cfg.AnchoreDetails.Password != "" {
-		cfg.AnchoreDetails.Password = redacted
+	if cfg.NextlinuxDetails.Password != "" {
+		cfg.NextlinuxDetails.Password = redacted
 	}
 
 	if cfg.KubeConfig.User.PrivateKey != "" {

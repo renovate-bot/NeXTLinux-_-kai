@@ -8,8 +8,8 @@ import (
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/anchore/k8s-inventory/internal/tracker"
-	"github.com/anchore/k8s-inventory/pkg/client"
+	"github.com/nextlinux/k8s-inventory/internal/tracker"
+	"github.com/nextlinux/k8s-inventory/pkg/client"
 )
 
 func FetchPodsInNamespace(c client.Client, batchSize, timeout int64, namespace string) ([]v1.Pod, error) {

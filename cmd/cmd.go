@@ -8,9 +8,9 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/anchore/k8s-inventory/internal/config"
-	"github.com/anchore/k8s-inventory/internal/logger"
-	"github.com/anchore/k8s-inventory/pkg"
+	"github.com/nextlinux/k8s-inventory/internal/config"
+	"github.com/nextlinux/k8s-inventory/internal/logger"
+	"github.com/nextlinux/k8s-inventory/pkg"
 )
 
 var (

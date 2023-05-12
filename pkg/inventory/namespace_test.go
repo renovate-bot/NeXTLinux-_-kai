@@ -8,7 +8,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes/fake"
 
-	"github.com/anchore/k8s-inventory/pkg/client"
+	"github.com/nextlinux/k8s-inventory/pkg/client"
 )
 
 func Test_fetchNamespaces(t *testing.T) {

@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/anchore/k8s-inventory/internal/log"
-	"github.com/anchore/k8s-inventory/pkg/client"
+	"github.com/nextlinux/k8s-inventory/internal/log"
+	"github.com/nextlinux/k8s-inventory/pkg/client"
 	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )

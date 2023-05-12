@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/anchore/k8s-inventory/cmd"
-	"github.com/anchore/k8s-inventory/pkg"
+	"github.com/nextlinux/k8s-inventory/cmd"
+	"github.com/nextlinux/k8s-inventory/pkg"
 )
 
 const (

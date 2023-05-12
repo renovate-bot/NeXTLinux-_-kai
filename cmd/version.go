@@ -7,8 +7,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/anchore/k8s-inventory/internal"
-	"github.com/anchore/k8s-inventory/internal/version"
+	"github.com/nextlinux/k8s-inventory/internal"
+	"github.com/nextlinux/k8s-inventory/internal/version"
 )
 
 var versionCmd = &cobra.Command{

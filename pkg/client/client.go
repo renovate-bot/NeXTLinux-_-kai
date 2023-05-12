@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/anchore/k8s-inventory/internal/log"
+	"github.com/nextlinux/k8s-inventory/internal/log"
 
 	"github.com/mitchellh/go-homedir"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 
-	"github.com/anchore/k8s-inventory/internal/config"
+	"github.com/nextlinux/k8s-inventory/internal/config"
 )
 
 const UseInCluster = "use-in-cluster"

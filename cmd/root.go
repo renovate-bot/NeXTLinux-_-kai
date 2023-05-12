@@ -5,23 +5,23 @@ import (
 	"os"
 	"runtime/pprof"
 
-	"github.com/anchore/k8s-inventory/pkg/mode"
+	"github.com/nextlinux/k8s-inventory/pkg/mode"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/anchore/k8s-inventory/pkg"
+	"github.com/nextlinux/k8s-inventory/pkg"
 )
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "anchore-k8s-inventory",
-	Short: "anchore-k8s-inventory tells Anchore which images are in use in your Kubernetes Cluster",
-	Long: `Anchore Kubernetes Inventory can poll
-    Kubernetes Cluster API(s) to tell Anchore which Images are currently in-use`,
+	Use:   "nextlinux-k8s-inventory",
+	Short: "nextlinux-k8s-inventory tells Nextlinux which images are in use in your Kubernetes Cluster",
+	Long: `Nextlinux Kubernetes Inventory can poll
+    Kubernetes Cluster API(s) to tell Nextlinux which Images are currently in-use`,
 	Args: cobra.MaximumNArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
-		log.Info("anchore-k8s-inventory is starting up...")
+		log.Info("nextlinux-k8s-inventory is starting up...")
 		if appConfig.Dev.ProfileCPU {
 			f, err := os.Create("cpu.profile")
 			if err != nil {

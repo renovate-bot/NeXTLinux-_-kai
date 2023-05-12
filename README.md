@@ -1,23 +1,23 @@
-# Anchore Kubernetes Inventory
-[![Go Report Card](https://goreportcard.com/badge/github.com/anchore/k8s-inventory)](https://goreportcard.com/report/github.com/anchore/k8s-inventory)
-[![GitHub release](https://img.shields.io/github/release/anchore/k8s-inventory.svg)](https://github.com/anchore/k8s-inventory/releases/latest)
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/anchore/k8s-inventory/blob/main/LICENSE)
+# Nextlinux Kubernetes Inventory
+[![Go Report Card](https://goreportcard.com/badge/github.com/nextlinux/k8s-inventory)](https://goreportcard.com/report/github.com/nextlinux/k8s-inventory)
+[![GitHub release](https://img.shields.io/github/release/nextlinux/k8s-inventory.svg)](https://github.com/nextlinux/k8s-inventory/releases/latest)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/nextlinux/k8s-inventory/blob/main/LICENSE)
 
-`anchore-k8s-inventory` polls the Kubernetes API on an interval to retrieve which images are currently in use.
+`nextlinux-k8s-inventory` polls the Kubernetes API on an interval to retrieve which images are currently in use.
 
 It can be run inside a cluster (under a Service Account) or outside (via any provided kubeconfig).
 
 ## Getting Started
-[Install the binary](#installation) or Download the [Docker image](https://hub.docker.com/repository/docker/anchore/k8s-inventory)
+[Install the binary](#installation) or Download the [Docker image](https://hub.docker.com/repository/docker/nextlinux/k8s-inventory)
 
 ## Installation
-`anchore-k8s-inventory` can be run as a CLI, Docker Container, or Helm Chart
+`nextlinux-k8s-inventory` can be run as a CLI, Docker Container, or Helm Chart
 
-By default, `anchore-k8s-inventory` will look for a kubeconfig in the home directory to use to authenticate (when run as a CLI).
+By default, `nextlinux-k8s-inventory` will look for a kubeconfig in the home directory to use to authenticate (when run as a CLI).
 
 ### CLI
 ```shell script
-$ anchore-k8s-inventory --verbose-inventory-reports
+$ nextlinux-k8s-inventory --verbose-inventory-reports
 {
   "cluster_name": "docker-desktop",
   "containers": [
@@ -128,35 +128,35 @@ $ anchore-k8s-inventory --verbose-inventory-reports
 ```
 ### Container
 
-In order to run `anchore-k8s-inventory` as a container, it needs a kubeconfig
+In order to run `nextlinux-k8s-inventory` as a container, it needs a kubeconfig
 ```sh
-~ docker run -it --rm -v ~/.kube/config:/.kube/config anchore/k8s-inventory:latest --verbose-inventory-reports
+~ docker run -it --rm -v ~/.kube/config:/.kube/config nextlinux/k8s-inventory:latest --verbose-inventory-reports
 ```
 
 ### Helm Chart
 
-Anchore-k8s-inventory is the foundation of Anchore Enterprise's Runtime Inventory feature. Running anchore-k8s-inventory via Helm is a great way to retrieve your Kubernetes Image inventory without providing Cluster Credentials to Anchore.
+Nextlinux-k8s-inventory is the foundation of Nextlinux Enterprise's Runtime Inventory feature. Running nextlinux-k8s-inventory via Helm is a great way to retrieve your Kubernetes Image inventory without providing Cluster Credentials to Nextlinux.
 
-Anchore-k8s-inventory runs as a read-only service account in the cluster it's deployed to.
+Nextlinux-k8s-inventory runs as a read-only service account in the cluster it's deployed to.
 
-In order to report the inventory to Anchore, anchore-k8s-inventory does require authentication material for your Anchore Enterprise deployment.
-anchore-k8s-inventory's helm chart automatically creates a kubernetes secret for the Anchore Password based on the values file you use, Ex.:
+In order to report the inventory to Nextlinux, nextlinux-k8s-inventory does require authentication material for your Nextlinux Enterprise deployment.
+nextlinux-k8s-inventory's helm chart automatically creates a kubernetes secret for the Nextlinux Password based on the values file you use, Ex.:
 
 ```yaml
-anchore-k8s-inventory:
-  anchore:
+nextlinux-k8s-inventory:
+  nextlinux:
     password: foobar
 ```
 
 It will set the following environment variable based on this: `ANCHORE_K8S_INVENTORY_ANCHORE_PASSWORD=foobar`.
 
-If you don't want to store your Anchore password in the values file, you can create your own secret to do this:
+If you don't want to store your Nextlinux password in the values file, you can create your own secret to do this:
 
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: anchore-k8s-inventory-anchore-password
+  name: nextlinux-k8s-inventory-nextlinux-password
 type: Opaque
 stringData:
   ANCHORE_K8S_INVENTORY_ANCHORE_PASSWORD: foobar
@@ -165,18 +165,18 @@ stringData:
 and then provide it to the helm chart via the values file:
 
 ```yaml
-anchore-k8s-inventory:
-  existingSecret: anchore-k8s-inventory-anchore-password
+nextlinux-k8s-inventory:
+  existingSecret: nextlinux-k8s-inventory-nextlinux-password
 ```
 
-anchore-k8s-inventory's helm chart is part of the [charts.anchore.io](https://charts.anchore.io) repo. You can install it via:
+nextlinux-k8s-inventory's helm chart is part of the [charts.nextlinux.io](https://charts.nextlinux.io) repo. You can install it via:
 
 ```sh
-helm repo add anchore https://charts.anchore.io
-helm install <release-name> -f <values.yaml> anchore/anchore-k8s-inventory
+helm repo add nextlinux https://charts.nextlinux.io
+helm install <release-name> -f <values.yaml> nextlinux/nextlinux-k8s-inventory
 ```
 
-A basic values file can always be found [here](https://github.com/anchore/anchore-charts/tree/master/stable/anchore-k8s-inventory/values.yaml)
+A basic values file can always be found [here](https://github.com/nextlinux/nextlinux-charts/tree/master/stable/nextlinux-k8s-inventory/values.yaml)
 
 ## Configuration
 ```yaml
@@ -191,7 +191,7 @@ log:
   level: "debug"
 
   # location to write the log file (default is not to have a log file)
-  file: "./anchore-k8s-inventory.log"
+  file: "./nextlinux-k8s-inventory.log"
 
 # enable/disable checking for application updates on startup
 check-for-app-update: true
@@ -213,7 +213,7 @@ verbose-inventory-reports: false
 
 ### Namespace selection
 
-Configure which namespaces anchore-k8s-inventory should search.
+Configure which namespaces nextlinux-k8s-inventory should search.
 
 * `include` section
   * A list of explicit strings that will detail the list of namespaces to capture image data from.
@@ -261,7 +261,7 @@ namespace-selectors:
 
 ### Kubernetes API Parameters
 
-This section will allow users to tune the way anchore-k8s-inventory interacts with the kubernetes API server.
+This section will allow users to tune the way nextlinux-k8s-inventory interacts with the kubernetes API server.
 
 ```yaml
 # Kubernetes API configuration parameters (should not need tuning)
@@ -276,7 +276,7 @@ kubernetes:
   worker-pool-size: 100
 ```
 
-### anchore-k8s-inventory mode of operation
+### nextlinux-k8s-inventory mode of operation
 
 ```yaml
 # Can be one of adhoc, periodic (defaults to adhoc)
@@ -295,7 +295,7 @@ example when an image is deployed using the digest.
 kubectl run python --image=python@sha256:f0a210a37565286ecaaac0529a6749917e8ea58d3dfc72c84acfbfbe1a64a20a
 ```
 
-Anchore Enterprise will use the image digest to process an image but it still requires a tag to be
+Nextlinux Enterprise will use the image digest to process an image but it still requires a tag to be
 associated with the image. The `missing-tag-policy` lets you configure the best way to handle the
 missing tag edge case in your environment.
 
@@ -343,14 +343,14 @@ missing-tag-policy:
 ignore-not-running: true
 ```
 
-### Anchore API configuration
+### Nextlinux API configuration
 
-Use this section to configure the Anchore Enterprise API endpoint
+Use this section to configure the Nextlinux Enterprise API endpoint
 
 ```yaml
-anchore:
-  url: <your anchore api url>
-  user: <anchore-k8s-inventory_inventory_user>
+nextlinux:
+  url: <your nextlinux api url>
+  user: <nextlinux-k8s-inventory_inventory_user>
   password: $ANCHORE_K8S_INVENTORY_ANCHORE_PASSWORD
   http:
     insecure: true
@@ -359,10 +359,10 @@ anchore:
 
 ## Behavior change (v0.5.0) (formerly KAI) 
 
-In versions of anchore-k8s-inventory < v0.5.0 the default behavior was to output the inventory report
-to stdout every time it was generated. anchore-k8s-inventory v0.5.0 changes this so it will not print
+In versions of nextlinux-k8s-inventory < v0.5.0 the default behavior was to output the inventory report
+to stdout every time it was generated. nextlinux-k8s-inventory v0.5.0 changes this so it will not print
 to stdout unless `verbose-inventory-reports: true` is set in the config file or
-anchore-k8s-inventory is called with the `--verbose-inventory-reports` flag.
+nextlinux-k8s-inventory is called with the `--verbose-inventory-reports` flag.
 
 ## Configuration Changes (v0.2.2 -> v0.3.0) (formerly KAI) 
 
@@ -383,7 +383,7 @@ kubernetes:
   request-timeout-seconds: 60
 ```
 
-anchore-k8s-inventory will still honor the old configuration. It will prefer the old configuration
+nextlinux-k8s-inventory will still honor the old configuration. It will prefer the old configuration
 parameter until it is removed from the config entirely. It is safe to remove the
 old configuration in favor of the new config.
 
@@ -437,14 +437,14 @@ To build a docker image, you'll need to provide a kubeconfig.
 Note: Docker build requires files to be within the docker build context
 
 ```sh
-docker build -t localhost/anchore-k8s-inventory:latest --build-arg KUBECONFIG=./kubeconfig .
+docker build -t localhost/nextlinux-k8s-inventory:latest --build-arg KUBECONFIG=./kubeconfig .
 ```
 
 ### Shell Completion
-anchore-k8s-inventory comes with shell completion for specifying namespaces, it can be enabled as follows. Run with the `--help` command to get the instructions for the shell of your choice
+nextlinux-k8s-inventory comes with shell completion for specifying namespaces, it can be enabled as follows. Run with the `--help` command to get the instructions for the shell of your choice
 
 ```sh
-anchore-k8s-inventory completion <zsh|bash|fish>
+nextlinux-k8s-inventory completion <zsh|bash|fish>
 ```
 
 ### Using Skaffold
@@ -459,10 +459,10 @@ skaffold dev
 ```
 
 ## Releasing
-To create a release of anchore-k8s-inventory, a tag needs to be created that points to a commit in `main`
+To create a release of nextlinux-k8s-inventory, a tag needs to be created that points to a commit in `main`
 that we want to release. This tag shall be a semver prefixed with a `v`, e.g. `v0.2.7`.
 This will trigger a GitHub Action that will create the release.
 
 After the release has been successfully created, make sure to specify the updated version
-in both Enterprise and the anchore-k8s-inventory Helm Chart in
-[anchore-charts](https://github.com/anchore/anchore-charts).
+in both Enterprise and the nextlinux-k8s-inventory Helm Chart in
+[nextlinux-charts](https://github.com/nextlinux/nextlinux-charts).
