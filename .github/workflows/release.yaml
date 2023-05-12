@@ -1,0 +1,98 @@
+name: 'Release'
+on:
+  push:
+    # take no actions on push to any branch...
+    branches-ignore:
+      - '**'
+    # ... only act on release tags
+    tags:
+      - 'v*'
+
+env:
+  GO_VERSION: "1.20.x"
+
+jobs:
+  wait-for-checks:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v2
+
+      # we don't want to release commits that have been pushed and tagged, but not necessarily merged onto main
+      - name: Ensure tagged commit is on main
+        run: |
+          echo "Tag: ${GITHUB_REF##*/}"
+          git fetch origin main
+          git merge-base --is-ancestor ${GITHUB_REF##*/} origin/main && echo "${GITHUB_REF##*/} is a commit on main!"
+
+      - name: Check static analysis
+        uses: fountainhead/action-wait-for-check@v1.0.0
+        id: static-analysis
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # This check name is defined as the github actions job name (in .github/workflows/static-analysis-integration.yaml)
+          checkName: "Static-Analysis (1.20.x, ubuntu-latest)"
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Check unit, and integration test results
+        uses: fountainhead/action-wait-for-check@v1.0.0
+        id: tests-unit-int
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # This check name is defined as the github actions job name (in .github/workflows/static-analysis-integration.yaml)
+          checkName: "Tests (1.20.x, ubuntu-latest)"
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Quality gate
+        if: steps.static-analysis.outputs.conclusion != 'success' || steps.tests-unit-int.outputs.conclusion != 'success'
+        run: |
+          echo "Static-Analysis Status : ${{ steps.static-analysis.outputs.conclusion }}"
+          echo "Unit/Integration Status : ${{ steps.tests-unit-int.outputs.conclusion }}"
+          false
+
+  release:
+    needs: [ wait-for-checks ]
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Restore bootstrap cache
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/go/pkg/mod
+            ${{ github.workspace }}/.tmp
+          key: ${{ runner.os }}-go-${{ env.GO_VERSION }}-${{ hashFiles('Makefile') }}-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-${{ env.GO_VERSION }}-${{ hashFiles('Makefile') }}-
+            ${{ runner.os }}-go-${{ env.GO_VERSION }}-
+
+      - name: Bootstrap dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: make ci-bootstrap
+
+      - name: Login to Docker Hub
+        id: docker-login
+        run: |
+          echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
+        env:
+          DOCKER_USER: ${{ secrets.TOOLBOX_DOCKER_USER }}
+          DOCKER_PASS: ${{ secrets.TOOLBOX_DOCKER_PASS }}
+
+      - name: Build snapshot artifacts
+        run: make release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: artifacts
+          path: dist/**/*

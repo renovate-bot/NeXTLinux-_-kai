@@ -1,0 +1,48 @@
+configpath: ""
+quiet: false
+log:
+  structured: false
+  levelopt: panic
+  level: ""
+  filelocation: ""
+clioptions:
+  configpath: ""
+  verbosity: 0
+dev:
+  profilecpu: false
+kubeconfig:
+  path: ""
+  cluster: ""
+  clustercert: ""
+  server: ""
+  user:
+    userconftype: 0
+    userconf: ""
+    clientcert: ""
+    privatekey: ""
+    token: ""
+kubernetes:
+  requesttimeoutseconds: 0
+  requestbatchsize: 0
+  workerpoolsize: 0
+namespaces: []
+kubernetesrequesttimeoutseconds: 0
+namespaceselectors:
+  include: []
+  exclude: []
+missingtagpolicy:
+  policy: ""
+  tag: ""
+runmode: 0
+mode: ""
+ignorenotrunning: false
+pollingintervalseconds: 0
+anchoredetails:
+  url: ""
+  user: ""
+  password: ""
+  account: ""
+  http:
+    insecure: false
+    timeoutseconds: 0
+verboseinventoryreports: false

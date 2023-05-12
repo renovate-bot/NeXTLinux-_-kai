@@ -1,0 +1,87 @@
+# same as -q ; suppress all output (except for the inventory results)
+quiet: false
+
+log:
+  # use structured logging
+  structured: false
+
+  # the log level; note: detailed logging suppress the ETUI
+  level: "debug"
+
+  # location to write the log file (default is not to have a log file)
+  file: "./anchore-k8s-inventory.log"
+
+# enable/disable checking for application updates on startup
+check-for-app-update: true
+
+kubeconfig:
+  path:
+  cluster: docker-desktop
+  cluster-cert:
+  server:  # ex. https://kubernetes.docker.internal:6443
+  user:
+    type:  # valid: [private_key, token]
+    client-cert:
+    private-key:
+    token:
+
+# Which namespaces to search or exclude.
+namespace-selectors:
+  # Namespaces to include as explicit strings, not regex
+  # NOTE: Will search ALL namespaces if left as an empty array
+  include: []
+
+  # List of namespaces to exclude, can use explicit strings and/or regexes.
+  # For example
+  #
+  # list:
+  # - default
+  # - ^kube-*
+  #
+  # Will exclude the default, kube-system, and kube-public namespaces
+  exclude: []
+
+# Kubernetes API configuration parameters (should not need tuning)
+kubernetes:
+  # Sets the request timeout for kubernetes API requests
+  request-timeout-seconds: 60
+
+  # Sets the number of objects to iteratively return when listing resources
+  request-batch-size: 100
+
+  # Worker pool size for collecting pods from namespaces. Adjust this if the api-server gets overwhelmed
+  worker-pool-size: 100
+
+# Can be one of adhoc, periodic (defaults to adhoc)
+mode: adhoc
+
+# Handle cases where a tag is missing. For example - images designated by digest
+missing-tag-policy:
+  # One of the following options [digest, insert, drop]. Default is 'digest'
+  #
+  # [digest] will use the image's digest as a dummy tag.
+  #
+  # [insert] will insert a default tag in as a dummy tag. The dummy tag is
+  #          customizable under missing-tag-policy.tag
+  #
+  # [drop] will drop images that do not have tags associated with them. Not
+  #        recommended.
+  policy: digest
+
+  # Dummy tag to use. Only applicable if policy is 'insert'. Defaults to UNKNOWN
+  tag: UNKNOWN
+
+
+# Ignore images out of pods that are not in a Running state
+ignore-not-running: true
+
+# Only respected if mode is periodic
+polling-interval-seconds: 300
+
+anchore:
+  # url: $ANCHORE_K8S_INVENTORY_ANCHORE_URL
+  # user: $ANCHORE_K8S_INVENTORY_ANCHORE_USER
+  password: $ANCHORE_K8S_INVENTORY_ANCHORE_PASSWORD
+#  http:
+#    insecure: true
+#    timeout-seconds: 10

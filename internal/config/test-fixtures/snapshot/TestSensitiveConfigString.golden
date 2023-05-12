@@ -1,0 +1,48 @@
+configpath: ../../anchore-k8s-inventory.yaml
+quiet: false
+log:
+  structured: false
+  levelopt: debug
+  level: debug
+  filelocation: ./anchore-k8s-inventory.log
+clioptions:
+  configpath: ../../anchore-k8s-inventory.yaml
+  verbosity: 0
+dev:
+  profilecpu: false
+kubeconfig:
+  path: ""
+  cluster: docker-desktop
+  clustercert: ""
+  server: ""
+  user:
+    userconftype: 0
+    userconf: ""
+    clientcert: ""
+    privatekey: '******'
+    token: '******'
+kubernetes:
+  requesttimeoutseconds: 60
+  requestbatchsize: 100
+  workerpoolsize: 100
+namespaces: []
+kubernetesrequesttimeoutseconds: -1
+namespaceselectors:
+  include: []
+  exclude: []
+missingtagpolicy:
+  policy: digest
+  tag: UNKNOWN
+runmode: 0
+mode: adhoc
+ignorenotrunning: true
+pollingintervalseconds: 300
+anchoredetails:
+  url: ""
+  user: ""
+  password: '******'
+  account: admin
+  http:
+    insecure: false
+    timeoutseconds: 10
+verboseinventoryreports: false
